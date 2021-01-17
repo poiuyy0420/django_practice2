@@ -30,7 +30,20 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+BATON = {
+    'SITE_HEADER' : '캠퍼스 백오프스',
+    'SITE_TITLE' : '캠퍼스 백오프스',
+    'INDEX_TITLE' : '캠퍼스 관리자페이지',
+    'SUPPORT_HREF' : 'https://github.com/poiuyy0420',
+    # 'SUPPORT_HREF' : 'mailto:test@test.com',
+    'COPYRIGHT': 'copyright © 2020 - poiuyy0420',
+    'POWERED_BY': '<a href="https://github.com/poiuyy0420">poiuyy0420</a>',
+    'MENU_TITLE' : '캠퍼스'
+}
+
+
 INSTALLED_APPS = [
+    'baton',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +55,8 @@ INSTALLED_APPS = [
     'fcuser',
     'order',
     'product',
+
+    'baton.autodiscover',
     
 ]
 
