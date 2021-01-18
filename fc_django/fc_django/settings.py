@@ -10,11 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# BASE_DIR2 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print(">>>>>", BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -38,7 +41,41 @@ BATON = {
     # 'SUPPORT_HREF' : 'mailto:test@test.com',
     'COPYRIGHT': 'copyright © 2020 - poiuyy0420',
     'POWERED_BY': '<a href="https://github.com/poiuyy0420">poiuyy0420</a>',
-    'MENU_TITLE' : '캠퍼스'
+    'MENU_TITLE' : '캠퍼스',
+    'MENU': (
+        { 'type': 'title', 'label': 'main', 'apps': ('fcuser', 'order', 'product') },
+        {
+            'type': 'app',
+            'name': 'fcuser',
+            'label': '사용자',
+            'icon': 'fa fa-lock',
+            'models': (
+                {
+                    'name': 'fcuser',
+                    'label': '사용자'
+                },
+            )
+        },
+        { 
+            'type': 'free', 'label': '주문', 'default_open': True, 'children': [
+                # { 'type': 'model', 'label': '주문', 'name': 'order', 'app': 'order' },
+                { 'type': 'free', 'label': '주문', 'url': '/admin/order/order/' },
+                { 'type': 'free', 'label': '주문 날짜 뷰', 'url': '/admin/order/order/date_view' },
+            ] 
+        },
+        {
+            'type': 'app',
+            'name': 'product',
+            'label': '상품',
+            'models': (
+                {
+                    'name': 'product',
+                    'label': '상품'
+                },
+            )
+        },
+        { 'type': 'free', 'label': '메뉴얼', 'url': '/admin/manual'},
+    ),
 }
 
 
@@ -56,7 +93,8 @@ INSTALLED_APPS = [
     'order.apps.OrderConfig',
     'product.apps.ProductConfig',
 
-    'baton.autodiscover'
+    'baton.autodiscover',
+    
     
 ]
 
@@ -75,7 +113,9 @@ ROOT_URLCONF = 'fc_django.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
